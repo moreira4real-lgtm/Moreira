@@ -1,0 +1,75 @@
+#include <iostream>
+include <string>
+using namespace std;
+
+
+class Book {
+private:
+    string title;
+    string author;
+    int id;
+
+public:
+    // Constructor
+    Book(string t, string a, int i) {
+        title = t;
+        author = a;
+        id = i;
+    }
+
+    
+    string getTitle() { return title; }
+    string getAuthor() { return author; }
+    int getId() { return id; }
+
+    void setTitle(string t) { title = t; }
+    void setAuthor(string a) { author = a; }
+};
+
+// Inheritance
+class EBook : public Book {
+private:
+    double fileSize;
+
+public:
+    EBook(string t, string a, int i, double f) : Book(t, a, i) {
+        fileSize = f;
+    }
+
+    double getFileSize() { return fileSize; }
+};
+
+
+class Library {
+public:
+    virtual void displayInfo(Book b) {
+        cout << "Book Title: " << b.getTitle() << endl;
+        cout << "Author: " << b.getAuthor() << endl;
+        cout << "Book ID: " << b.getId() << endl;
+    }
+};
+
+class ELibrary : public Library {
+public:
+    void displayInfo(Book b) override {
+        cout << "E-Book Title: " << b.getTitle() << endl;
+        cout << "Author: " << b.getAuthor() << endl;
+        cout << "Book ID: " << b.getId() << endl;
+    }
+};
+
+int main() {
+    Book physicalBook("1984", "George Orwell", 101);
+    EBook digitalBook("Digital Fortress", "Dan Brown", 102, 2.5);
+
+    Library lib;
+    ELibrary eLib;
+
+    cout << "Physical Book Info:" << endl;
+    lib.displayInfo(physicalBook);
+
+    cout << "\nDigital Book Info:" << endl;
+    eLib.displayInfo(digitalBook);
+
+    return 0;
+}
